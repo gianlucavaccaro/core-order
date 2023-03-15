@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class OrderEvent implements Serializable{
 
 	/**
@@ -27,6 +29,7 @@ public class OrderEvent implements Serializable{
 		this.tracking = tracking;
 	}
 	
+	@JsonIgnore
 	public TrackingEvent getLastTracking() {
 		if(tracking == null) {
 			tracking = new ArrayList<>();
