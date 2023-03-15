@@ -25,9 +25,13 @@ public class OrderService {
 		return orderRepository.findById(idOrdine).orElseThrow(() -> new ResourceNotFoundException("Resource not found"));
 	}
 	
+	public Ordine retrieveByUuid(String uuid) throws ResourceNotFoundException {
+		return orderRepository.findByUuidStr(uuid).orElseThrow(() -> new ResourceNotFoundException("Resource not found"));
+	}
+	
 	@Transactional
-	public Ordine createOrder(String tipologia, Long idProdotto, int numeroPezzi, String stato) {
-		Ordine order= new Ordine(tipologia, idProdotto, numeroPezzi, stato);
+	public Ordine createOrder(String uuid, String tipologia, Long idProdotto, int numeroPezzi, String stato) {
+		Ordine order= new Ordine(uuid, tipologia, idProdotto, numeroPezzi, stato);
 		return orderRepository.save(order);
 	}
 	

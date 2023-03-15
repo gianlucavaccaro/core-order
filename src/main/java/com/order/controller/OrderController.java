@@ -43,10 +43,21 @@ public class OrderController {
 		}
 	}
 	
-	@PutMapping("/createOrder")
-	public ResponseEntity<Ordine> createOrder(@RequestParam(required=true) String tipologia, @RequestParam(required=true) Long idProdotto, @RequestParam(required=true) int numeroPezzi, @RequestParam(required=true) String stato){
+	@GetMapping("/orderByUuid")
+	public ResponseEntity<Ordine> getOrderByUuid(@RequestParam(required=true) String uuid) {
 		try {
-			Ordine order=orderService.createOrder(tipologia, idProdotto, numeroPezzi,stato);
+			Ordine order=orderService.retrieveByUuid(uuid);
+			return new ResponseEntity<Ordine>(order,HttpStatus.OK);
+		} catch(ResourceNotFoundException e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
+	
+	@PutMapping("/createOrder")
+	public ResponseEntity<Ordine> createOrder(@RequestParam(required=true) String uuid,@RequestParam(required=true) String tipologia, @RequestParam(required=true) Long idProdotto, @RequestParam(required=true) int numeroPezzi, @RequestParam(required=true) String stato){
+		try {
+			Ordine order=orderService.createOrder(uuid,tipologia, idProdotto, numeroPezzi,stato);
 			return new ResponseEntity<Ordine>(order,HttpStatus.OK);
 		} catch (DataIntegrityViolationException e) {
 			e.printStackTrace();

@@ -12,9 +12,9 @@ public class Ordine {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private Long idOrdine;
 	private String uuidStr;
 	private String stato;
-	private Long idOrdine;
 	private String tipologiaOrdine;
 	private Long idProdotto;
 	private int numeroPezzi;
@@ -26,7 +26,8 @@ public class Ordine {
 		this.numeroPezzi = numeroPezzi;
 	}
 
-	public Ordine(String tipologia, Long idProdotto, int numeroPezzi, String stato) {
+	public Ordine(String uuid, String tipologia, Long idProdotto, int numeroPezzi, String stato) {
+		this.uuidStr=uuid;
 		this.tipologiaOrdine = tipologia;
 		this.idProdotto = idProdotto;
 		this.numeroPezzi = numeroPezzi;
